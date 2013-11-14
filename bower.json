@@ -1,0 +1,21 @@
+{
+  "name": "brunch-with-edge-benedict",
+  "repo": "codevinsky/brunch-with-edge-benedict",
+  "version": "1.2",
+  "main": "_public/js/app.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "console-polyfill": "~0.1.0",
+    "jquery": "~2.0.3",
+    "bootstrap": "~3.0.2",
+    "angular": "1.2.0",
+    "angular-route": "1.2.0",
+    "sling-ui": "0.3.1.2",
+    "angular-animate": "1.2.0",
+    "ngAnimate-animate.css": "git://github.com/codevinsky/ngAnimate-animate.css.git"
+  }
+}

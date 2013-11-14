@@ -1,0 +1,59 @@
+div(ng-controller="MainController")
+	.voting-booth
+		.col-md-12.clearfix
+			.row
+				.col-md-12
+					h3 The war wages on for the title of "The Internet's Cutest Cat"...
+			.row
+				.col-md-6
+					.panel.cat.col-md-12(ng-click="vote(battle.a.id)")
+						img.img-responsive.img-rounded(ng-src="images/{{battle.a.image}}")
+				.col-md-6
+					.panel.cat.col-md-12(ng-click="vote(battle.b.id)")
+						img.img-responsive.img-rounded(ng-src="images/{{battle.b.image}}")
+
+	.container.results(ng-show="battleList.length > 0")
+		h3 Battle Log
+		table.table
+			thead
+				tr
+					th.col-md-5 A
+					th.col-md-5 B
+					th 
+			tbody
+				tr(ng-repeat="battle in battleList")
+					td(ng-class="{winner: battle.winner == battle.a.id}")
+						.row
+							.col-md-7
+								.center-cropped(style="background-image: url('images/{{battle.a.image}}')")
+							.col-md-5
+								h4 Vital Catistics
+								dl
+									dt Battles Fought:
+									dd {{battle.a.battles}}
+									dt Battles Won:
+									dd {{battle.a.score}}
+									dt Win Percentage:
+									dd {{battle.a.winPercentage}}% 
+
+								button.btn.btn-primary Battle Card
+
+					td(ng-class="{winner: battle.winner == battle.b.id}")
+						.row
+							.col-md-7
+								.center-cropped(style="background-image: url('images/{{battle.b.image}}')")
+							.col-md-5
+								h4 Vital Catistics
+								dl
+									dt Battles Fought:
+									dd {{battle.b.battles}}
+									dt Battles Won:
+									dd {{battle.b.score}}
+									dt Win Percentage:
+									dd {{battle.b.winPercentage}}%
+									dt
+								button.btn.btn-primary Battle Card
+
+					td
+						a(ng-href="#/{{getBattleId(battle)}}") Battle Link
+

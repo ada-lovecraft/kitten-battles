@@ -1,0 +1,79 @@
+@import '/bower_components/bootstrap/less/bootstrap.less';
+
+/* Colors */
+/* Kitten Battles 
+@bass: #0E0F0E;
+@low: #B5AE9A;
+@mid: #EB4F3C;
+@high: #B077FF;
+@treble: #38C6DB;
+*/
+
+/* Das Boot */
+@bass: #2F3540;
+@low: #666A73;
+@mid:  #D9D1C7;
+@high: #8C8681;
+@treble: #F2EDE4;
+
+.voting-booth {
+	width: 100%;
+	background-color: @bass;
+	padding: 2%;
+	color: @treble;
+}
+
+.navbar {
+	margin-bottom: 0px !important;
+}
+
+.panel {
+	width: 100%;
+	&.cat {
+		cursor: pointer;
+		background-color: @low;
+		height: 500px;
+		display: table-cell;
+		vertical-align: middle;
+		border-radius: 6px;
+		width: 1%;
+		img {
+			&.img-rounded {
+				display: block;
+				margin: auto;
+				max-width: 100%;
+				max-height: 450px;
+				border: 2px solid @treble;
+			}
+		}
+		&:hover {
+			background-color: @mid;
+		}
+	}
+}
+
+.results {
+	img {
+		max-width: 100px;
+		max-height: 100px;
+		margin: auto;
+	}
+	
+	td {
+		vertical-align: middle;
+	}
+
+	.winner {
+		background-color: @treble;
+	}
+}
+
+.center-cropped {
+	width: 220px;  // change to desired width.
+    height: 220px; // change to desired height.
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    border: 2px solid @high;
+}
+	
