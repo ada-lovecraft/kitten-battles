@@ -2,11 +2,15 @@
 
 # Declare app level module which depends on filters, and services
 
+
+services = angular.module 'services', []
+
 App = angular.module 'app', [
 	'ngRoute'
 	'partials'
 	'sling.ui'
-	'ngAnimate'
+	'ngAnimate-animate.css'
+	'services'
 ], ($routeProvider, $locationProvider, $httpProvider, $rootScopeProvider) ->
 
 	interceptor = ($rootScope, $q, $location) ->
@@ -42,3 +46,16 @@ App.config([
 		# Without server side support html5 must be disabled.
 		$locationProvider.html5Mode(false)
 ])
+
+App.run ($rootScope, $window, sessionService) ->
+	$rootScope.session = sessionService
+	$window.app = {
+		authState: (state, user) ->
+			$rootScope.$apply ->
+				switch state 
+					when 'success' then sessionService.authSuccess user
+					when 'failure' then sessionService.authFailed()
+	}	
+	
+	if $window.user
+		sessionService.authSuccess($window.user)

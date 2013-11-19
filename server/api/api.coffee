@@ -100,4 +100,3 @@ exports.voteBattle = (req, res) =>
 
 	###
 
-	

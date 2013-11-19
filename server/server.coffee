@@ -1,47 +1,29 @@
+fs = require('fs')
+mongoose = require('mongoose')
+passport = require('passport')
+http = require('http')
+mongodbURI = 'mongodb://localhost/kittens'
+facebookAppId = '239433526117683'
+facebookAppSecret = '9b31cf3ed2199c369b40a21d678be95e'
 
-###
-Module dependencies.
-###
-express = require("express")
-http = require("http")
-path = require("path")
-api = require './api'
+mongoose.createConnection(mongodbURI)
 
-app = module.exports = require('express.io')()
+models_path = __dirname + '/models'
 
-app.http().io()
-
-assetsPath = path.join(__dirname, '..', '_public')
-imagesPath = path.join(__dirname,'..','sucked','cats')
-
-# all environments
-app.set "port", process.env.PORT or 3000
-app.use express.bodyParser()
-app.use express.methodOverride()
-app.use express.static(assetsPath)
-app.use app.router
-
-# development only
-app.use express.errorHandler()  if "development" is app.get("env")
-
-# JSON API
-# Kittens
-app.get '/kittens/list', api.listKittens
-app.get '/kittens/show/:id', api.showKitten
-
-#Battles
-app.get '/battle/new', api.newBattle
-app.get '/battle/show/:id', api.showBattle
-app.post '/battle/vote', api.voteBattle
+fs.readdirSync(models_path).forEach  (file) ->
+    if file.substring(-7) == '.coffee'
+        require(models_path + '/' + file)
+    
 
 
-#serve index for all other routes
-app.get '/images/:id', (req,res) ->
-	res.sendfile "#{imagesPath}/#{req.params.id}"
-app.get '*', (req,res) -> res.sendfile "#{assetsPath}/index.html"
+require('./config/passport')(passport, facebookAppId, facebookAppSecret);
 
-module.exports.startServer = (port, path, cb) ->
-	app.set 'port', port
-	app.listen port, ->
-	  console.log "Express.io server listening on port #{port}"
+app = require('./config/express')(passport, mongodbURI);
+
+require('./config/routes')(app, passport);
+
+module.exports.startServer = (port, a,b) ->
+	http.createServer(app).listen port, ->
+	    console.log("Express server listening on port #{port}");
+
 
